@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Bank Manager</title>
+</head>
+<body>
+<div id="app">
+
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="index.html" @click.prevent="NOP()"><i class="fas fa-piggy-bank"></i></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="index.html" @click.prevent="clickView()">View Clients</a>
+        <a class="nav-item nav-link" href="index.html" @click.prevent="clickEdit()">Manage Clients</a>
+      </div>
+    </div>
+  </nav>
+
+<div class="content">
+
+<div v-if="viewFlag"><!--View list of clients, cannot edit here-->
+  <div class="client" v-for="client in clients">
+    <h2>Name: {{client.name}}</h2>
+    <p>Address: {{client.address}}</p>
+    <p>Account ID: {{client._id}}</p>
+    <p>PIN: {{client.pin}}</p>
+    <p>Balance: ${{client.amount}}</p>
+    <p>Transaction History: {{client.history}}</p>
+  </div>
+</div>
+
+<div v-else><!--Editing page-->
+    <div class="add">
+      <div class="form">
+        <h1 v-if="selectedClient">Modify Client</h1>
+        <h1 v-else>Ceate Client</h1>
+        <p>Name</p>
+        <input v-model="name" placeholder="Name">
+        <p></p>
+        <p>Address</p>
+        <input v-model="address" placeholder="Address">
+        <p></p>
+        <p>PIN</p>
+        <input v-model="pin" placeholder="PIN">
+        <p></p>
+        <div v-if="selectedClient">
+          <p>Balance: ${{selectedClient.amount}}</p>
+          <p></p>
+          <p>Deposit/Withdrawl Amount</p>
+          <input type="number" v-model="transaction">
+        </div>
+        <div v-else>
+          <p>Initial Deposit</p>
+          <input type="number" v-model="amount">
+        </div>
+        <p></p>
+        <div class="actions" v-if="selectedClient">
+          <button @click="deleteClient(selectedClient)">Delete {{selectedClient.name}}</button>
+          <p></p>
+          <button @click="editClient(selectedClient)">Edit {{selectedClient.name}}</button>
+        </div>
+        <div class="actions" v-else>
+          <button @click="addClient">Create New Client</button>
+        </div>
+      </div>
+      <div class="form">
+        <h1>Select Client</h1>
+        <div class="suggestions" v-if="clients.length > 0">
+          <div class="suggestion" v-for="c in clients" @click="selectClient(c)">{{c.name}}</div>
+        </div>
+        <div class="actions" v-if="selectedClient">
+          <button @click="clearSelection()">Clear Selection</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+</div>
+
+<footer id="footer">
+ <div class="container">
+     <span class="text-muted"><a href="https://github.com/gbwilhelm/cs-260-cproj4">My GitHub</a></span>
+ </div>
+</footer>
+
+</div><!--end #app-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js" integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA=" crossorigin="anonymous"></script>
+<!--Bootstrap-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="/script.js"></script>
+</body>
+
+</html>
