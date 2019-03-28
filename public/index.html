@@ -3,6 +3,8 @@
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles.css" />
@@ -34,7 +36,7 @@
   </div>
 </div>
 
-<div v-else><!--Editing page-->
+<div v-else><!--Editing frame-->
     <div class="add">
       <div class="form">
         <h1 v-if="selectedClient">Modify Client</h1>
@@ -53,6 +55,9 @@
           <p></p>
           <p>Deposit/Withdrawl</p>
           <input type="number" v-model="transaction">
+          <p></p>
+          <p>Transaction Note (Optional)</p>
+          <input v-model="transactionNote">
         </div>
         <div v-else>
           <p>Initial Deposit</p>
@@ -70,8 +75,8 @@
       </div>
       <div class="form">
         <h1>Select Client</h1>
-        <div class="suggestions" v-if="clients.length > 0">
-          <div class="suggestion" v-for="c in clients" @click="selectClient(c)">{{c.name}}</div>
+        <div class="select-clients" v-if="clients.length > 0">
+          <div class="select-client" v-for="c in clients" @click="selectClient(c)">{{c.name}}</div>
         </div>
         <div class="actions" v-if="selectedClient">
           <p></p>

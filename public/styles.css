@@ -1,5 +1,5 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Lora', serif;
   font-size: 16px;
   background: #fff;
   padding: 0px;
@@ -16,7 +16,7 @@ body {
 
 /* Form */
 input, textarea, select, button {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Lora', serif;
   font-size: 1em;
 }
 
@@ -24,19 +24,20 @@ input, textarea, select, button {
   margin-right: 50px;
 }
 
-/* Suggestions */
-.suggestions {
-  width: 200px;
+.select-clients {
+  min-width: 200px;
   border: 1px solid #ccc;
+  margin-bottom: 1em;
 }
 
-.suggestion {
+.select-client {
   min-height: 20px;
+  padding: 2px 2px 2px 2px;
 }
 
-.suggestion:hover {
-  background-color: #5BDEFF;
-  color: #fff;
+.select-client:hover {
+  background-color: #353535;
+  color: #FCFFF5;
 }
 
 #footer, #footer-small{
@@ -65,7 +66,7 @@ input, textarea, select, button {
 #footer a,#footer-small a{
   position: relative;
   font-family: 'Oxygen', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: none;
   color: #FCFFF5;
   border-right: 3px solid #FCFFF5;
@@ -89,8 +90,7 @@ input, textarea, select, button {
 .navbar a{
     color: #FCFFF5;
     font-family: 'Oxygen', sans-serif;
-    font-size: 14px;
-    margin-top: 1em;
+    font-size: 18px;
 }
 
 .navbar p:hover:not(.navbar-brand){

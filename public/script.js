@@ -10,6 +10,7 @@ var app = new Vue({
     pin:"",
     amount:0,
     transaction:0,
+    transactionNote: "",
     selectedClient: null,
     clients: [],
   },
@@ -21,6 +22,7 @@ var app = new Vue({
       this.pin=client.pin;
       this.amount=client.amount;
       this.transaction=0;
+      this.transactionNote="";
     },
     clickView(){
       this.viewFlag=true;
@@ -35,6 +37,7 @@ var app = new Vue({
       this.pin="";
       this.amount=0;
       this.transaction=0;
+      this.transactionNote="";
     },
     async getClients() {
       try {
@@ -116,11 +119,19 @@ var app = new Vue({
       try {
         let transactionStr ="";
         if(this.transaction < 0){
-          transactionStr=" Withdrawal $"+Math.abs(this.transaction)+" ."
-          //check if exceeds current balance
+          transactionStr=" Withdrawal $"+Math.abs(this.transaction);
+          if(this.transactionNote != ""){
+            transactionStr+=" ("+this.transactionNote+")";
+          }
+          transactionStr+=".";
         }else if(this.transaction > 0){
-          transactionStr=" Deposit $"+this.transaction+" ."
+          transactionStr=" Deposit $"+this.transaction;
+          if(this.transactionNote != ""){
+            transactionStr+=" ("+this.transactionNote+")";
+          }
+          transactionStr+=".";
         }
+
 
         let response = await axios.put("/api/clients/" + selectedClient._id, {
           name: this.name,
