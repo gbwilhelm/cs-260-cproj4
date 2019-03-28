@@ -51,7 +51,7 @@
         <div v-if="selectedClient">
           <p>Balance: ${{selectedClient.amount}}</p>
           <p></p>
-          <p>Deposit/Withdrawl Amount</p>
+          <p>Deposit/Withdrawl</p>
           <input type="number" v-model="transaction">
         </div>
         <div v-else>
@@ -60,9 +60,9 @@
         </div>
         <p></p>
         <div class="actions" v-if="selectedClient">
-          <button @click="deleteClient(selectedClient)">Delete {{selectedClient.name}}</button>
-          <p></p>
           <button @click="editClient(selectedClient)">Edit {{selectedClient.name}}</button>
+          <p></p>
+          <button @click="deleteClient(selectedClient)">Delete {{selectedClient.name}}</button>
         </div>
         <div class="actions" v-else>
           <button @click="addClient">Create New Client</button>
@@ -74,6 +74,7 @@
           <div class="suggestion" v-for="c in clients" @click="selectClient(c)">{{c.name}}</div>
         </div>
         <div class="actions" v-if="selectedClient">
+          <p></p>
           <button @click="clearSelection()">Clear Selection</button>
         </div>
       </div>

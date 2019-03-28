@@ -50,10 +50,20 @@ var app = new Vue({
         let str = "Initial deposit: $"+this.amount+".";
 
         //check input
-        try{
-          Number(this.pin);
-        }catch(err){
-          window.alert("The PIN can only contain numbers and must be 4 digits");
+        if(this.name === ""){
+          window.alert("Missing Name field!");
+          return;
+        }else if(this.address === ""){
+          window.alert("Missing Address field!");
+          return;
+        }else if(isNaN(this.pin)){
+          window.alert("The PIN can only contain numbers!");
+          return;
+        }else if(this.pin.length !== 4){
+          window.alert("The PIN must be 4 digits long (including leading zeros)!");
+          return;
+        }else if(this.amount<0){
+          window.alert("Cannot open an account with a negative initial deposit!");
           return;
         }
 
@@ -82,20 +92,41 @@ var app = new Vue({
       }
     },
     async editClient(selectedClient){
+      //check input
+      if(this.name === ""){
+        window.alert("Missing Name field!");
+        return;
+      }else if(this.address === ""){
+        window.alert("Missing Address field!");
+        return;
+      }else if(isNaN(this.pin)){
+        window.alert("The PIN can only contain numbers!");
+        return;
+      }else if(this.pin.length !== 4){
+        window.alert("The PIN must be 4 digits long (including leading zeros)!");
+        return;
+      }else if(isNaN(this.transaction)){
+        window.alert("The Transaction field can only contain numbers!");
+        return;
+      }else if(Number(this.selectedClient.amount)+Number(this.transaction) < 0){
+        window.alert("You cannot withdraw more than the current balance!");
+        return;
+      }
+
       try {
         let transactionStr ="";
         if(this.transaction < 0){
-          transactionStr=" Withdrawl $"+this.transaction+" ."
+          transactionStr=" Withdrawal $"+Math.abs(this.transaction)+" ."
           //check if exceeds current balance
         }else if(this.transaction > 0){
           transactionStr=" Deposit $"+this.transaction+" ."
         }
 
         let response = await axios.put("/api/clients/" + selectedClient._id, {
-          name: this.selectedClient.name,
-          address: this.selectedClient.address,
-          pin: this.selectedClient.pin,
-          amount: Number(this.selectedClient.amount)+this.transaction,
+          name: this.name,
+          address: this.address,
+          pin: this.pin,
+          amount: Number(this.selectedClient.amount)+Number(this.transaction),
           history: this.selectedClient.history+transactionStr,
         });
         this.getClients();
