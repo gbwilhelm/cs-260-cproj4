@@ -40,6 +40,16 @@ input, textarea, select, button {
   color: #FCFFF5;
 }
 
+.client-notfirst{
+  border-top: 2px solid #353535;
+  padding-top: 0.75em;
+}
+
+#column{
+  border-right: 2px solid #353535;
+  padding-right: 3em;
+}
+
 #footer, #footer-small{
   margin-top: 2em;
     bottom: 0;

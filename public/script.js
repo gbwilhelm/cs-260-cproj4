@@ -4,7 +4,7 @@ var app = new Vue({
     this.getClients();
   },
   data: {
-    viewFlag: false,
+    viewFlag: true,
     name:"",
     address:"",
     pin:"",

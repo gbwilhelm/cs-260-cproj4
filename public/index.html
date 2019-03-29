@@ -19,6 +19,7 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="index.html" @click.prevent="clickView()">View Clients</a>
         <a class="nav-item nav-link" href="index.html" @click.prevent="clickEdit()">Manage Clients</a>
+        <a class="nav-item nav-link" href="about.html">About This Project</a>
       </div>
     </div>
   </nav>
@@ -26,19 +27,24 @@
 <div class="content">
 
 <div v-if="viewFlag"><!--View list of clients, cannot edit here-->
-  <div class="client" v-for="client in clients">
-    <h2>Name: {{client.name}}</h2>
-    <p>Address: {{client.address}}</p>
-    <p>Account ID: {{client._id}}</p>
-    <p>PIN: {{client.pin}}</p>
-    <p>Balance: ${{client.amount}}</p>
-    <p>Transaction History: {{client.history}}</p>
+  <div v-if="clients.length > 0">
+  <div class="client" v-for="(client,index) in clients" :class="{ 'client-notfirst': index != 0 }">
+    <h2><i class="fas fa-user" style="margin-right: 0.5em;"></i> {{client.name}}</h2>
+    <p><i class="fas fa-home" style="margin-right: 0.5em;"></i> {{client.address}}</p>
+    <p><i class="fas fa-id-card" style="margin-right: 0.5em;"></i> {{client._id}}</p>
+    <p><i class="fas fa-hashtag" style="margin-right: 0.5em;"></i> {{client.pin}}</p>
+    <p><i class="fas fa-money-bill-wave" style="margin-right: 0.5em;"></i> ${{client.amount}}</p>
+    <p><i class="fas fa-history" style="margin-right: 0.5em;"></i> {{client.history}}</p>
   </div>
+  </div>
+<div v-else>
+  <h1>There are currently no clients - go create some!</h1>
+</div>
 </div>
 
 <div v-else><!--Editing frame-->
     <div class="add">
-      <div class="form">
+      <div class="form" id="column">
         <h1 v-if="selectedClient">Modify Client</h1>
         <h1 v-else>Ceate Client</h1>
         <p>Name</p>
@@ -73,7 +79,7 @@
           <button @click="addClient">Create New Client</button>
         </div>
       </div>
-      <div class="form">
+        <div class="column">
         <h1>Select Client</h1>
         <div class="select-clients" v-if="clients.length > 0">
           <div class="select-client" v-for="c in clients" @click="selectClient(c)">{{c.name}}</div>
